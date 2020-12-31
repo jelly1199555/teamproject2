@@ -28,6 +28,7 @@ public class TcpMultiClientGUI extends JFrame implements Runnable, ActionListene
    TextField txtField1 = new TextField();
    JScrollPane scrollPane1 = new JScrollPane(txtArea1);
 
+
    public TcpMultiClientGUI(DataInputStream dis, DataOutputStream dos, String sUserId) {
       this.dis = dis;
       this.dos = dos;
@@ -37,11 +38,15 @@ public class TcpMultiClientGUI extends JFrame implements Runnable, ActionListene
       lbl1.setFont(new Font("굴림", Font.BOLD, 22));
       add("North", lbl1);
       
-      txtArea1.setBackground(Color.yellow);
-      txtArea1.setForeground(Color.blue);
-      txtArea1.setFont(new Font("굴림", Font.BOLD, 22));
+      Color color = new Color(80,157,179); //밝은 파랑
+      Color color2 = new Color(10,21,28); //거의 검정
+      
+
+      txtArea1.setBackground(color2);
+      txtArea1.setForeground(color);
+      txtArea1.setFont(new Font("나눔고딕", Font.BOLD, 20));
       txtArea1.setEditable(false);
-      txtArea1.setText("귀속말 보내는 방법: 채팅창에\n/w아이디 메시지\n를 입력하면 '아이디' 사용자에게 '메시지'가 전송됩니다.\n");
+      txtArea1.setText("\t"+"귓속말 보내는 방법: 채팅창에\n/w아이디 메시지\n를 입력하면 '아이디' 사용자에게 '메시지'가 전송됩니다.\n");
       add("Center", scrollPane1);
       
       txtField1.setBackground(Color.white);

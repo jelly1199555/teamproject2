@@ -13,11 +13,14 @@ public class TcpMultiServerMain {
 	private ArrayList<ThreadServerClass> lstThread = new ArrayList<>();
 	private Socket sk;
 	DataOutputStream dos;
+	ChatDao dao;
 
 	public TcpMultiServerMain(int portNo) throws IOException {
 		Socket sk1 = null;
 		ServerSocket ss = new ServerSocket(portNo);
 		System.out.println("서버 가동.... Port 번호: " + portNo + " 접속 대기중...");
+////////////////////////////////////////////////////////////////////////////////////////
+		dao = new ChatDao();
 
 		while (true) {
 			sk1 = ss.accept();
@@ -81,7 +84,9 @@ public class TcpMultiServerMain {
 					if (loginResult) {
 						sResult1 = TcpMultiLib.sPacketResultOk;
 						sMsg = userId + "(으)로 로긴했습니다.";
-					} else {
+						////////////////////////////////////////////////////////////////////////////////////////
+						dao.writeLogin(userId);					
+						} else {
 						sResult1 = TcpMultiLib.sPacketResultError;
 						sMsg = userId + "(으)로 로긴할 수 없습니다.";
 					}
@@ -236,12 +241,13 @@ public class TcpMultiServerMain {
 	}
 
 	public static void main(String[] args) throws NumberFormatException, IOException {
-		int portNo = 8905;
+		int portNo = 7798;
 
 		if (args.length != 1) {
 			System.out.println("Usage: java PackageName.TcpMultiServerMain PortNo");
 		} else {
 			portNo = Integer.valueOf(args[0]);
+			
 		}
 
 		new TcpMultiServerMain(portNo);
