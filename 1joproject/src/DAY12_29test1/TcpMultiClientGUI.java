@@ -17,42 +17,99 @@ import java.io.IOException;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
+import javax.swing.JButton;
+import java.awt.SystemColor;
+import javax.swing.JTextArea;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class TcpMultiClientGUI extends JFrame implements Runnable, ActionListener {
    private DataInputStream dis;
    private DataOutputStream dos;
    private String sUserId;
+   
+   Color color1 = new Color(90,135,221); //밝은 파랑
+   Color color2 = new Color(18,30,63); //남색
 
    JLabel lbl1 = new JLabel("그룹채팅");
-   TextArea txtArea1 = new TextArea();
    TextField txtField1 = new TextField();
-   JScrollPane scrollPane1 = new JScrollPane(txtArea1);
 
 
    public TcpMultiClientGUI(DataInputStream dis, DataOutputStream dos, String sUserId) {
+   	getContentPane().setBackground(new Color(231, 235, 240));
       this.dis = dis;
       this.dos = dos;
       this.sUserId = sUserId;
-      
-      setLayout(new BorderLayout());
-      lbl1.setFont(new Font("굴림", Font.BOLD, 22));
-      add("North", lbl1);
-      
-      Color color = new Color(80,157,179); //밝은 파랑
-      Color color2 = new Color(10,21,28); //거의 검정
+      getContentPane().setLayout(null);
+      lbl1.setBounds(25, 25, 612, 26);
+      lbl1.setFont(new Font("맑은 고딕", Font.BOLD, 20));
+      lbl1.setForeground(color1);
+      getContentPane().add(lbl1);
       
 
-      txtArea1.setBackground(color2);
-      txtArea1.setForeground(color);
-      txtArea1.setFont(new Font("나눔고딕", Font.BOLD, 20));
-      txtArea1.setEditable(false);
-      txtArea1.setText("\t"+"귓속말 보내는 방법: 채팅창에\n/w아이디 메시지\n를 입력하면 '아이디' 사용자에게 '메시지'가 전송됩니다.\n");
-      add("Center", scrollPane1);
       
+      
+      txtField1.setBounds(25, 555, 565, 142);
       txtField1.setBackground(Color.white);
       txtField1.setForeground(Color.black);
       txtField1.setFont(new Font("굴림", Font.BOLD, 25));
-      add("South", txtField1);
+      getContentPane().add(txtField1);
+      
+
+      txtArea.setBackground(Color.WHITE);
+      txtArea.setForeground(new Color(0, 0, 0));
+      txtArea.setFont(new Font("맑은 고딕", Font.BOLD, 20));
+      txtArea.setEditable(false);
+      txtArea.setText("\n"+"귓속말 보내는 방법: 채팅창에\n/w아이디 메시지\n를 입력하면 '아이디' 사용자에게 '메시지'가 전송됩니다.\n\n");
+      
+      JButton btnExit = new JButton("EXIT");
+      btnExit.setBackground(new Color(255, 255, 255));
+     
+      btnExit.setBounds(612, 126, 149, 54);
+      btnExit.addActionListener(new ActionListener() {
+      	public void actionPerformed(ActionEvent arg0) {
+      		System.exit(0);
+      	}
+      });
+
+      btnExit.setForeground(color1);
+      btnExit.setFont(new Font("맑은 고딕", Font.BOLD, 20));
+      getContentPane().add(btnExit);
+      btnSend.addActionListener(new ActionListener() {
+      	public void actionPerformed(ActionEvent e) {
+      		new UPloadGUL().setVisible(true);
+      	}
+      });
+      
+      btnSend.setBounds(612, 555, 149, 54);
+      btnSend.setBackground(color1);
+      btnSend.setForeground(Color.white);
+      btnSend.setFont(new Font("맑은 고딕", Font.BOLD, 20));
+      
+      getContentPane().add(btnSend);
+      btnTip.addActionListener(new ActionListener() {
+      	public void actionPerformed(ActionEvent e) {
+      	}
+      });
+      btnTip.addMouseListener(new MouseAdapter() {
+      	@Override
+      	public void mouseClicked(MouseEvent arg0) {
+      		new TcpMultiClientGUI2().setVisible(true);
+      	}
+      });
+      
+      btnTip.setBounds(612, 66, 149, 54);
+      btnTip.setFont(new Font("맑은 고딕", Font.BOLD, 20));
+      btnTip.setBackground(new Color(255, 255, 255));
+      btnTip.setForeground(color1);
+      
+      getContentPane().add(btnTip);
+      
+      JScrollPane scrollPane = new JScrollPane();
+      scrollPane.setBounds(25, 66, 565, 459);
+      getContentPane().add(scrollPane);
+      
+      scrollPane.setViewportView(txtArea);
       txtField1.addActionListener(this);
       
       setSize(800, 800);
@@ -78,6 +135,9 @@ public class TcpMultiClientGUI extends JFrame implements Runnable, ActionListene
 
    int prevNo = -1;
    String prevId = "";
+   private final JButton btnSend = new JButton("FILE");
+   private final JButton btnTip = new JButton("TIP");
+   private final JTextArea txtArea = new JTextArea();
    
    @Override
    public void run() {
@@ -87,7 +147,7 @@ public class TcpMultiClientGUI extends JFrame implements Runnable, ActionListene
             System.out.println("<<< " + sPacket);
             
             if(sPacket == null) {
-               txtArea1.append("\n종료");
+               txtArea.append("\n종료");
                break;
             }
 
@@ -96,20 +156,20 @@ public class TcpMultiClientGUI extends JFrame implements Runnable, ActionListene
             
             // 메시지
             if(cmd.equals(TcpMultiLib.sPacketCmdMsg2)) {
-               txtArea1.append("\n" + asSplit[1] + ": " + asSplit[2]);
+            	txtArea.append("\n" + asSplit[1] + ": " + asSplit[2]);
             }
             else if(cmd.equals(TcpMultiLib.sPacketResult)) {
-               txtArea1.append("\n" + "longin " + asSplit[1] 
+            	txtArea.append("\n" + "longin " + asSplit[1] 
                      + "\n" + asSplit[2]);
             }
             
-            int txtLen = txtArea1.getText().length();
-            txtArea1.setCaretPosition(txtLen);
+            int txtLen = txtArea.getText().length();
+            txtArea.setCaretPosition(txtLen);
             tk.beep();
          }
       }
       catch(Exception e) {
-         txtArea1.append("\n" + e.getMessage());
+    	  txtArea.append("\n" + e.getMessage());
       }
    }
 
@@ -129,7 +189,7 @@ public class TcpMultiClientGUI extends JFrame implements Runnable, ActionListene
                   
                   if(sUserId.length() >= 1) {
                      sPacket = TcpMultiLib.makeMsgPacket4SomeOne(sUserId, sMsg2);
-                     txtArea1.append("\n(귀속말)" + sUserId + ": " + sMsg2);   
+                     txtArea.append("\n(r귓속말)" + sUserId + ": " + sMsg2);   
                      System.out.println("+++ " + sPacket);
                   }
                }

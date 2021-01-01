@@ -241,7 +241,7 @@ public class TcpMultiServerMain {
 	}
 
 	public static void main(String[] args) throws NumberFormatException, IOException {
-		int portNo = 7798;
+		int portNo = 7569;
 
 		if (args.length != 1) {
 			System.out.println("Usage: java PackageName.TcpMultiServerMain PortNo");
