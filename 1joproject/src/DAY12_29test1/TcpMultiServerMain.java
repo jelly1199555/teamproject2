@@ -63,7 +63,7 @@ public class TcpMultiServerMain {
 							tc2.dos.writeUTF(sPacket2);
 						}
 					} else {
-						sPacket2 = TcpMultiLib.makeMsg2Packet(sSenderId, "(귀속말)" + asSplit[2]);
+						sPacket2 = TcpMultiLib.makeMsg2Packet(sSenderId, "(귓속말)" + asSplit[2]);
 
 						for (int i = 0; i < lstThread.size(); i++) {
 							ThreadServerClass tc2 = lstThread.get(i);
