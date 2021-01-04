@@ -34,11 +34,6 @@ public class UPloadGUL extends JFrame {
 	FileInputStream fin;
 	File file;
 	PrintWriter pw;
-	int portno;
-	public UPloadGUL(int portno1) {
-		this.portno=portno1;
-		
-	}
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -119,7 +114,7 @@ public class UPloadGUL extends JFrame {
 		contentPane.add(textField);
 		textField.setColumns(10);
 		
-		javax.swing.JButton btnNewButton = new javax.swing.JButton("ip접속");
+		JButton btnNewButton = new JButton("ip접속");
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(java.awt.event.MouseEvent arg0) {
@@ -131,14 +126,14 @@ public class UPloadGUL extends JFrame {
 		btnNewButton.setBounds(375, 12, 143, 52);
 		contentPane.add(btnNewButton);
 		
-		textField_1 = new javax.swing.JTextField();
+		textField_1 = new JTextField();
 		textField_1.setText("보낼파일을 찾아봐");
 		textField_1.setColumns(10);
 		textField_1.setBorder(BorderFactory.createTitledBorder("업로드할 파일"));
 		textField_1.setBounds(14, 88, 301, 52);
 		contentPane.add(textField_1);
 		
-		btnNewButton_1 = new javax.swing.JButton("파일찾기");
+		btnNewButton_1 = new JButton("파일찾기");
 		btnNewButton_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(java.awt.event.MouseEvent e) {
@@ -152,7 +147,7 @@ public class UPloadGUL extends JFrame {
 		btnNewButton_1.setBounds(375, 88, 143, 52);
 		contentPane.add(btnNewButton_1);
 		
-		lb = new javax.swing.JLabel("New label");
+		lb = new JLabel("New label");
 		lb.setBounds(14, 171, 504, 370);
 		contentPane.add(lb);
 	}

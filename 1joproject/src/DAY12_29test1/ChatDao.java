@@ -56,7 +56,15 @@ public class ChatDao extends ChatDB {
 	}
 
 	public String readData() {
-		String sql = "select * from login_table order by user_id";
+		String sql = "select * from login_table order by to_char(login_dt, 'yyyy-mm-dd') desc";
+		/*String sql = "SELECT * "+ 
+				" FROM ("
+				+ "    SELECT DISTINCT user_id, TO_CHAR(login_dt, 'YYY-MM-DD') as login_dt"
+				+ "     FROM login_table"
+				+ "     WHERE user_id =?"
+				+ "     ORDER B login_dt DESC" 
+				+ "       )"
+				+ " WEHRE rownum <=3";*/
 		Connection conn = null;
 		PreparedStatement psmt = null;
 		ResultSet rs = null;
