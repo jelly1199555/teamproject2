@@ -1,4 +1,4 @@
-package com.yskim.ex.thread;
+package test;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
