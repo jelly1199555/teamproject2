@@ -83,19 +83,19 @@ public class TcpMultiServerMain {
 
 					if (loginResult) {
 						sResult1 = TcpMultiLib.sPacketResultOk;
-						sMsg = userId + "(으)로 로긴했습니다.";
+						sMsg = userId + "님이 로그인했습니다.";
 						////////////////////////////////////////////////////////////////////////////////////////
 						dao.writeLogin(userId);					
 						} else {
 						sResult1 = TcpMultiLib.sPacketResultError;
-						sMsg = userId + "(으)로 로긴할 수 없습니다.";
+						sMsg = userId + "로그인할 수 없습니다.";
 					}
 
 					String sResult2 = TcpMultiLib.makePacket(TcpMultiLib.sPacketResult, sResult1, sMsg);
 					tc1.dos.writeUTF(sResult2);
 
 					if (loginResult) {
-						sendChat(userId + "님 입장!!!");
+						sendChat(userId + "님이 들어오셨습니다.");
 					}
 				}
 			}
@@ -134,7 +134,7 @@ public class TcpMultiServerMain {
 			try {
 				while (true) {
 					sock = server.accept();
-					System.out.println(sock.getInetAddress() + "가 접속해옴");
+					System.out.println(sock.getInetAddress() + "가 접속함");
 					ois = new ObjectInputStream(sock.getInputStream());
 					// 서버가 파일명을 보내오는 것을 받자
 					String fileName = ois.readUTF(); // 문자열을 받기 위해 readUTF 사용
@@ -241,7 +241,7 @@ public class TcpMultiServerMain {
 	}
 
 	public static void main(String[] args) throws NumberFormatException, IOException {
-		int portNo = 7569;
+		int portNo = 7788;
 
 		if (args.length != 1) {
 			System.out.println("Usage: java PackageName.TcpMultiServerMain PortNo");

@@ -60,8 +60,8 @@ public class TcpMultiClientGUI extends JFrame implements Runnable, ActionListene
       txtArea.setForeground(new Color(0, 0, 0));
       txtArea.setFont(new Font("맑은 고딕", Font.BOLD, 20));
       txtArea.setEditable(false);
-      txtArea.setText("\n"+"귓속말 보내는 방법: 채팅창에\n/w아이디 메시지\n를 입력하면 '아이디' 사용자에게 '메시지'가 전송됩니다.\n\n");
-      
+/*      txtArea.setText("\n"+"귓속말 보내는 방법: 채팅창에\n/w아이디 메시지\n를 입력하면 '아이디' 사용자에게 '메시지'가 전송됩니다.\n\n");
+*/      
       JButton btnExit = new JButton("EXIT");
       btnExit.setBackground(new Color(255, 255, 255));
      
